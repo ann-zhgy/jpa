@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <!-- transaction-type：指定 JPA  的事务处理策略。
+         RESOURCE_LOCAL：默认值，数据库级别的事务，只能针对一种数据库，不支持分布式事务。
+                      如果需要支持分布式事务，使用JTA：transaction-type="JTA"
+         name 属性用于定义持久化单元的名字, 必选			 
+     -->
+    <persistence-unit name="jpa04" transaction-type="RESOURCE_LOCAL">
+
+        <!-- 配置ORM映射产品来实现JPA映射 
+             实际上是 javax.persistence.spi.PersistenceProvider的实现类
+             如果项目中只有一个JPA实现产品，则不需要配置该节点
+        -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <!-- 添加持久化类 -->
+        <class>cn.ann.entity.User</class>
+        <class>cn.ann.entity.Order</class>
+
+        <properties>
+            <!-- 连接数据库的基本信息 -->
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.url"	value="jdbc:mysql://localhost:3307/jpa_test?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai" />
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="password" />
+            <!-- ORM 框架的基本信息 -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
