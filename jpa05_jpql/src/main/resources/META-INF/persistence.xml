@@ -7,8 +7,7 @@
                       如果需要支持分布式事务，使用JTA：transaction-type="JTA"
          name 属性用于定义持久化单元的名字, 必选			 
      -->
-    <persistence-unit name="jpa04" transaction-type="RESOURCE_LOCAL">
-
+    <persistence-unit name="jpa05" transaction-type="RESOURCE_LOCAL">
 
         <!-- 配置ORM映射产品来实现JPA映射 
              实际上是 javax.persistence.spi.PersistenceProvider的实现类
@@ -17,11 +16,8 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!-- 添加持久化类 -->
         <class>cn.ann.entity.User</class>
-        <class>cn.ann.entity.Order</class>
-        <class>cn.ann.entity.Department</class>
-        <class>cn.ann.entity.Manager</class>
 
-        <!-- 配置二级缓存 -->
+        <!-- 开启二级缓存 -->
         <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
 
         <properties>

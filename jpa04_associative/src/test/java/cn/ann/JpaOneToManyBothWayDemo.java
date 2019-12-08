@@ -14,9 +14,9 @@ import java.util.Date;
 /**
  * Create By 88475 With IntelliJ IDEA On 2019-12-5 13:45
  */
-public class JpaOneToManyDemo {
+public class JpaOneToManyBothWayDemo {
     @Test
-    public void oneToManyTest_persist() {
+    public void oneToManyBothWayTest_persist() {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa04");
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction tx = entityManager.getTransaction();
@@ -50,11 +50,8 @@ public class JpaOneToManyDemo {
         }
     }
 
-    /**
-     * 默认使用懒加载
-     */
     @Test
-    public void oneToManyTest_find() {
+    public void oneToManyBothWayTest_find01() {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa04");
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction tx = entityManager.getTransaction();
@@ -74,7 +71,27 @@ public class JpaOneToManyDemo {
     }
 
     @Test
-    public void oneToManyTest_merge() {
+    public void oneToManyBothWayTest_find02() {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa04");
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            Order order = entityManager.find(Order.class, 1L);
+            System.out.println(order);
+            System.out.println(order.getUser());
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+            throw new RuntimeException(e);
+        } finally {
+            entityManager.close();
+            factory.close();
+        }
+    }
+
+    @Test
+    public void oneToManyBothWayTest_merge() {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa04");
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction tx = entityManager.getTransaction();
@@ -94,10 +111,10 @@ public class JpaOneToManyDemo {
     }
 
     /**
-     * 删除一的一方时，会先将关联的外键置空，然后删除
+     * 如果一的一方放弃维护主键，删除一的一方会报异常
      */
     @Test
-    public void oneToManyTest_remove() {
+    public void oneToManyBothWayTest_remove() {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa04");
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction tx = entityManager.getTransaction();

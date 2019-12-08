@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         updateCheck="false">
+
+    <!-- 设置硬盘目录 -->
+    <diskStore path="D:\\temp"/>
+    <!-- maxElementsInMemory 缓存最大个数 -->
+    <!-- eternal 是否永久有效,如果该值设置为true,则timeout将失效 -->
+    <!-- timeToIdleSeconds 失效前的闲置时间 -->
+    <!-- timeToLiveSeconds 失效前的存活时间 -->
+    <!-- diskSpoolBufferSizeMB 缓存区的大小 默认30M -->
+    <!-- maxElementsOnDisk 硬盘最大缓存个数 -->
+    <!-- overflowToDisk 超出缓存最大个数时写入硬盘 -->
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            overflowToDisk="true"
+    />
+</ehcache>

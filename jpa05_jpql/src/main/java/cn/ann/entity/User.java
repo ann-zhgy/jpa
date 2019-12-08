@@ -3,12 +3,13 @@ package cn.ann.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Create By 88475 With IntelliJ IDEA On 2019-12-5 13:36
  */
+@NamedQuery(name = "namedQuery", query = "from User u where u.id = :id")
+@Cacheable(true)
 @Entity
 @Table(name = "t_user")
 public class User implements Serializable {
@@ -21,14 +22,16 @@ public class User implements Serializable {
     private String lastName;
     private Integer age;
     private String email;
-    @Temporal(TemporalType.DATE)
-    private Date birthday;
 
     @OneToMany(targetEntity = Order.class, mappedBy = "user")
-//    @JoinColumn(name = "user_id")
     private List<Order> orders = new ArrayList<>();
 
     public User() {
+    }
+
+    public User(String lastName, Integer age) {
+        this.lastName = lastName;
+        this.age = age;
     }
 
     public Long getId() {
@@ -63,14 +66,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
     public List<Order> getOrders() {
         return orders;
     }
@@ -86,7 +81,6 @@ public class User implements Serializable {
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 ", email='" + email + '\'' +
-                ", birthday=" + birthday +
                 '}';
     }
 }
